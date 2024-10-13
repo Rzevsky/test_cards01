@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardContainer = document.getElementById('cardContainer');
     const addCardButton = document.getElementById('addCardButton');
     const saveCardButton = document.getElementById('saveCardButton');
+    const deleteCardButton = document.getElementById('deleteCardButton');
 
     // Ссылки на поля модального окна
     const termInput = document.getElementById('termInput');
@@ -60,6 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Обновляем заголовок модального окна
         document.getElementById('addCardModalLabel').innerText = 'Добавить новую карточку';
 
+        // Скрываем кнопку удаления при добавлении новой карточки
+        deleteCardButton.style.display = 'none';
+
         // Открываем модальное окно
         addCardModal.show();
     });
@@ -91,6 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Обновляем заголовок модального окна
                     document.getElementById('addCardModalLabel').innerText = 'Редактировать карточку';
 
+                    // Показываем кнопку удаления при редактировании карточки
+                    deleteCardButton.style.display = 'inline-block';
+
                     // Открываем модальное окно с предзаполненными данными
                     addCardModal.show();
                 })
@@ -107,8 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
             definition: definitionInput.value,
             url: urlInput.value // Сохраняем новый URL карточки
         };
-
-        console.log('Сохраняются данные карточки:', cardData); // Лог для проверки данных, которые сохраняются
 
         // Если currentCardId равен null, это значит, что добавляется новая карточка
         if (currentCardId === null) {
@@ -153,6 +158,25 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => {
                 console.error('Ошибка при редактировании карточки:', error);
+            });
+        }
+    });
+
+    // Слушатель для кнопки "Удалить" в модальном окне
+    deleteCardButton.addEventListener('click', () => {
+        if (currentCardId !== null) {
+            fetch(`/api/cards/${currentCardId}`, {
+                method: 'DELETE',
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Ошибка при удалении карточки');
+                }
+                addCardModal.hide();
+                loadCards();
+            })
+            .catch(error => {
+                console.error('Ошибка при удалении карточки:', error);
             });
         }
     });
