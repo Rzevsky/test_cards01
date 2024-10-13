@@ -1,0 +1,100 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Исключает появление скролл-бара на body */
+    background-color: #f8f9fa; /* Единый фон для всей страницы */
+}
+
+.image-container {
+    position: relative;
+    width: 100vw; /* Полная ширина окна */
+    height: 100vh; /* Полная высота окна */
+    overflow-y: auto;
+    scroll-snap-type: y mandatory; /* Центровка изображений при прокрутке */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центровка изображений по горизонтали */
+    padding: 20px 0; /* Дополнительное пространство сверху и снизу */
+}
+
+.card {
+    position: relative; /* Добавил относительное позиционирование для родительского элемента */
+    width: calc(100% - 40px); /* Ширина карточки с учетом отступов по бокам */
+    max-width: 600px; /* Ограничение по максимальной ширине */
+    max-height: 70vh; /* Ограничиваем высоту карточки до 70% от высоты экрана */
+    margin: 20px 0; /* Отступы сверху и снизу для разделения карточек */
+    padding: 15px;
+    scroll-snap-align: center; /* Центрирование карточки при прокрутке */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    background-color: #ffffff;
+    box-sizing: border-box; /* Включаем padding в общую ширину/высоту элемента */
+    display: flex;
+    flex-direction: column; /* Внутренние элементы карточки располагаются по колонке */
+    align-items: center; /* Центровка элементов карточки */
+}
+
+.card img {
+    width: 100%;
+    max-height: 50vh; /* Ограничиваем высоту изображения до 50% от высоты экрана */
+    border-radius: 8px;
+    object-fit: contain; /* Изображение полностью вмещается в рамку, не срезается */
+    margin-bottom: 10px; /* Отступ между изображением и текстом */
+    box-sizing: border-box; /* Учитываем отступы в расчете размеров */
+}
+
+.card .card-body {
+    width: 100%; /* Полная ширина для текста */
+    text-align: center; /* Центровка текста */
+    flex: 1; /* Занимаем оставшееся пространство карточки */
+    overflow: hidden; /* Исключаем переполнение текста */
+}
+
+.card .card-body h5,
+.card .card-body p {
+    margin: 5px 0; /* Отступы для заголовка и текста */
+    word-wrap: break-word; /* Перенос слов */
+    text-overflow: ellipsis; /* Добавляем многоточие для длинного текста */
+}
+
+.card .edit-card-button {
+    position: absolute; /* Абсолютное позиционирование кнопки внутри карточки */
+    bottom: 15px; /* Отступ снизу от края карточки */
+    right: 15px; /* Отступ справа от края карточки */
+    background-color: #6c757d; /* Серый цвет кнопки */
+    color: white; /* Цвет текста на кнопке — белый */
+    border: none; /* Убираем обводку */
+    padding: 8px 12px; /* Добавил немного внутреннего отступа для кнопки */
+    border-radius: 5px; /* Немного скругленные углы кнопки */
+}
+
+.card .edit-card-button:hover {
+    background-color: #5a6268; /* Темнее при наведении, чтобы была видна реакция */
+}
+
+
+#addCardButton {
+    position: fixed; /* Закрепляем кнопку внизу экрана */
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000; /* Делаем кнопку видимой над другими элементами */
+}
+
+.modal-dialog {
+    width: 55% !important; /* Сделал модальное окно на 10% шире, чем было */
+    max-width: none; /* Убираем максимальное ограничение ширины */
+}
+
+/* Дополнительно: Медиазапрос для мобильных устройств */
+@media (max-width: 768px) {
+    .card {
+        max-width: 90%; /* Увеличиваем максимальную ширину карточки на мобильных */
+        margin-bottom: 15vh; /* Уменьшаем расстояние между карточками для мобильных */
+    }
+
+    .modal-dialog {
+        width: 90% !important; /* На мобильных модальное окно должно занимать больше места */
+    }
+}
