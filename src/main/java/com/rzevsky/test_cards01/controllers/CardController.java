@@ -45,4 +45,14 @@ public class CardController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @DeleteMapping("/{cardId}")
+    public ResponseEntity<Void> deleteCard(@PathVariable Long cardId) {
+        try {
+            cardService.deleteCard(cardId);
+            return ResponseEntity.noContent().build(); // Возвращаем 204 No Content при успешном удалении
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build(); // Возвращаем 404, если карточка не найдена
+        }
+    }
 }

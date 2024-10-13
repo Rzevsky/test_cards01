@@ -31,7 +31,13 @@ public class CardService {
                 .orElseThrow(() -> new RuntimeException("Card not found"));
         card.setTerm(updatedCard.getTerm());
         card.setDefinition(updatedCard.getDefinition());
-        card.setUrl(updatedCard.getUrl()); // Добавляем обновление URL
+        card.setUrl(updatedCard.getUrl());
         return cardRepository.save(card);
+    }
+
+    public void deleteCard(Long cardId) {
+        Card card = cardRepository.findById(cardId)
+                .orElseThrow(() -> new RuntimeException("Card not found"));
+        cardRepository.delete(card);
     }
 }
