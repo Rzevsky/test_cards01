@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,4 +21,10 @@ public class Card {
     private String term;
     private String definition;
     private String url;
+
+    public Card(String term, String definition, String url) {
+        this.term = term;
+        this.definition = definition;
+        this.url = url;
+    }
 }
